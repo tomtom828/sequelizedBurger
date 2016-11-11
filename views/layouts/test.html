@@ -1,0 +1,119 @@
+<!-- @author: Thomas Thompson
+@github: tomtom28
+@comment: Homework 14 - Eat the Burger!
+ -->
+
+
+<!-- This is ONLY A STATIC FILE for setting up the html page. Disregard for grading. -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Tab Title -->
+    <title>Eat da Burger!</title>
+    <!-- Tab Image -->
+    <link rel="icon" href="../../public/assets/img/Krabby_Patty.png">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom Styling -->
+    <link rel="stylesheet" href="../../public/assets/css/burger_style.css">
+  </head>
+  <body>
+  
+    <!-- Page Container -->
+    <div class="container">
+      
+      <br>
+
+      <!-- Burger Image -->
+      <center>
+        <div class="row">
+          <img src="../../public/assets/img/Krabby_Patty.png">
+        </div>
+      </center>
+
+      <!-- Page Title -->
+      <center>
+        <h1 class="red_font">Eat da Burger! <small class="tiny_text">Best with a side of sound.</small></h1>
+      </center>
+      
+      <br>
+
+      <!-- Burger Content Div -->
+      <div class="row">
+        <center>
+          <!-- Left side (ready to eat) -->
+          <div class="col-md-6">
+            <h4 class="red_font">Ready to eat!</h4>
+            <div id="ready_to_eat">
+
+              <!-- Dynamically Insert Ready Burgers Here -->
+              <div class="input-group">
+                <li class="form-control">1. Bob's Burger</li>
+                <span class="input-group-btn devour-button">
+                  <button class="btn btn-success" type="button">Devour It!</button>
+                </span>
+              </div>
+                                                
+              <div class="input-group">
+                <li class="form-control">2. Good Burger</li>
+                <span class="input-group-btn devour-button">
+                  <button class="btn btn-success" type="button">Devour It!</button>
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right side (already eaten) -->
+          <div class="col-md-6">
+            <h4 class="red_font">Already eaten!</h4>
+            <div id="already_eaten">
+
+              <!-- Dynamically Insert Ready Burgers Here -->
+              <div class="input-group">
+                <li class="form-control">3. Krabby Patty</li>
+                <span class="input-group-btn whine-button">
+                  <button class="btn btn-info" type="button">Whine!</button>
+                </span>
+              </div>
+
+              <div class="input-group">
+                <li class="form-control">4. Big Mac</li>
+                <span class="input-group-btn whine-button">
+                  <button class="btn btn-info" type="button">Whine!</button>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </center>
+      </div>
+
+      <br><br>
+
+      <!-- Input New Burgers Box -->        
+      <div class="row">
+
+        <!-- Empty Div to help center textarea -->
+        <div class="col-md-3"></div> 
+
+        <!-- Burger Input Box -->
+        <div class="form-group col-md-6">
+          <center><label class="red_font">Request a new burger and place your order!</label></center>
+          <textarea class="form-control" columns="8" rows="4" id="new_burger"></textarea>
+        </div>
+
+        <!-- Empty Div to help center textarea -->
+        <div class="col-md-3"></div> 
+
+      </div>
+    
+      <!-- Submit Button -->
+      <center>
+        <button id="submit-button" type="button" class="btn btn-danger">Place Order</button>
+      </center>
+
+    </div>
+    
+  </body>
+</html>
