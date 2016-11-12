@@ -1,3 +1,12 @@
+// @author: Thomas Thompson
+// @github: tomtom28
+// @comment: Homework 15 - Eat the Burger - Part 2!
+
+
+
+// This file was generated with `sequelize init` in the CLI
+
+
 'use strict';
 
 var fs        = require('fs');
