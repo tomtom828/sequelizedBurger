@@ -1,36 +1,27 @@
 // @author: Thomas Thompson
 // @github: tomtom28
-// @comment: Homework 14 - Eat the Burger!
+// @comment: Homework 15 - Eat the Burger - Part 2!
 
 
 
-// Node Dependency
-var orm = require('../config/orm.js');
+// Burger Model
+// ===============
+'use strict';
 
+// EXPORT THIS MODULE TO INDEX.JS
+module.exports = function(sequelize, DataTypes) {
 
-// create the code that will call the ORM functions using burger specific input for the ORM.
-var burger = {
-
-  selectAll: function(callback){
-    orm.selectAll(function(res){
-      callback(res);
-    });
-  },
-
-  insertOne: function(burger_name, callback){
-    orm.insertOne(burger_name, function(res){
-      callback(res);
-    });
-  },
-
-  updateOne: function(burger_id, callback){
-    orm.updateOne(burger_id, function(res){
-      callback(res);
-    });
-  }
-
+  // The model is Burger, defined in sequelize
+  var Burger = sequelize.define('Burger', {
+    burger_name: DataTypes.STRING,
+    devoured: DataTypes.BOOLEAN
+  }, {
+    // Add associations (for later...)
+    classMethods: {
+      associate: function(models){
+        // re-visit this later on...
+      }
+    }
+  });
+  return Burger;
 };
-
-
-// Export at the end of the burger.js file.
-module.exports = burger;
