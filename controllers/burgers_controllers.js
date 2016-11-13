@@ -7,25 +7,28 @@
 // Node Dependencies
 var express = require('express');
 var router = express.Router();
-var Burger = require('../models')["Burger"]; // Pulls out the Burger Model
+var models = require('../models'); // Pulls out the Burger Models
+
 
 
 // Create routes
 // ----------------------------------------------------
+
 // Index Redirect
 router.get('/', function (req, res) {
   res.redirect('/index');
 });
 
 
+
 // Index Page (render all burgers to DOM)
 router.get('/index', function (req, res) {
 
-  // // Sequelize Query to get all burgers from database
-  Burger.findAll({attributes: ['id', 'burger_name', 'devoured', 'date']}).then(function(data){
+  // Sequelize Query to get all burgers from database
+  models.burgers.findAll({}).then(function(data){
 
     var hbsObject = { burgers: data };
-    console.log(data);
+    // console.log(data);
     res.render('index', hbsObject);
 
   })
@@ -33,20 +36,45 @@ router.get('/index', function (req, res) {
 });
 
 
+
 // Create a New Burger
-// router.post('/burger/create', function (req, res) {
-//   burger.insertOne(req.body.burger_name, function() {
-//     res.redirect('/index');
-//   });
-// });
+router.post('/burger/create', function (req, res) {
+
+  // Sequelize Query to add new burger to database
+  models.burgers.create(
+    {
+      burger_name: req.body.burger_name,
+      devoured: false
+    }
+  ).then(function(){
+    // After the burger is added to the database, refresh the page
+    res.redirect('/index');
+  });
+
+});
+
 
 
 // Devour a Burger
-// router.post('/burger/eat/:id', function (req, res) {
-//   burger.updateOne(req.params.id, function() {
-//     res.redirect('/index');
-//   });
-// });
+router.post('/burger/eat/:id', function (req, res) {
+  
+  // First, use a Sequelize Query to find the burger with the selected id
+  models.burgers.findOne( {where: {id: req.params.id} }).then(function(burger){
+    
+    // Then, update its status to devoured
+    burger.update({
+      devoured: true
+    })
+
+    // After the burger is devoured, refresh the page
+    .then(function(){
+      res.redirect('/index');
+    });
+
+  });
+
+});
+
 // ----------------------------------------------------
 
 
