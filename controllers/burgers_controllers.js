@@ -7,7 +7,7 @@
 // Node Dependencies
 var express = require('express');
 var router = express.Router();
-var models = require('../models'); // Pulls out the Burger Models
+var models = require('./models'); // Pulls out the Burger Models
 
 
 
@@ -57,20 +57,33 @@ router.post('/burger/create', function (req, res) {
 
 // Devour a Burger
 router.post('/burger/eat/:id', function (req, res) {
-  
+
+  // Globalize the current burger
+  var burger;
+
   // First, use a Sequelize Query to find the burger with the selected id
   models.burgers.findOne( {where: {id: req.params.id} }).then(function(burger){
     
+    console.log(req.body.burgerEater)
     // Then, update its status to devoured
     burger.update({
-      devoured: true
+      devoured: true,
     })
+  })
 
-    // After the burger is devoured, refresh the page
-    .then(function(){
-      res.redirect('/index');
-    });
+  .then(function(){
+    return models.Devourers.create({
+      devourer_name: req.body.burgerEater
+    })
+  })
 
+  .then(function(devourer){
+    burger.addDevourers(devourer);
+  })
+
+  // After the burger is devoured, refresh the page
+  .then(function(){
+    res.redirect('/index');
   });
 
 });

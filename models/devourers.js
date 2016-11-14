@@ -1,3 +1,11 @@
+// @author: Thomas Thompson
+// @github: tomtom28
+// @comment: Homework 15 - Eat the Burger - Part 2!
+
+
+
+// Burger Eater Model
+// ===============
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var devourers = sequelize.define('devourers', {
@@ -5,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        // Each of the devourers belongs to one of the burgers
+        devourers.belongsTo(models.burgers, {through: 'BurgersDevourers'});
       }
     }
   });
