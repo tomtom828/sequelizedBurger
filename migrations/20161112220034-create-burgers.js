@@ -14,6 +14,9 @@ module.exports = {
       devoured: {
         type: Sequelize.BOOLEAN
       },
+      devourerId: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

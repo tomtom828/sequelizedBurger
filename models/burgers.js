@@ -14,8 +14,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // Each of the burgers belongs to one of the devourers
-        burgers.hasOne(models.devourers, {through: 'BurgersDevourers'});
+        // The burger has a 1 to 1 relationship, so nothing needs to be specified here
       }
     }
   });

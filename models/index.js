@@ -5,7 +5,7 @@
 
 
 // This file was generated with `sequelize init` in the CLI
-// NOTE THAT WHEN DEPLOYING TO HEROKU, we need to set NODE_ENV to production (see the "start" script in config.json)
+// NOTE THAT WHEN DEPLOYING TO HEROKU, we need to set process.env.JAWSDB_URL on line 23.
 
 'use strict';
 
@@ -17,7 +17,7 @@ var env       = process.env.NODE_ENV || 'development';
 //var config    = require(__dirname + '/..\config\config.json')[env];
 var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
-console.log(config.use_env_variable)
+
 if (config.use_env_variable) {
   //var sequelize = new Sequelize(process.env[config.use_env_variable]);
   var sequelize = new Sequelize(process.env.JAWSDB_URL);

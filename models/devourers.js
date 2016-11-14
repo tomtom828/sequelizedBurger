@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // Each of the devourers belongs to one of the burgers
-        devourers.hasOne(models.burgers, {through: 'BurgersDevourers'});
+        devourers.hasOne(models.burgers);
       }
     }
   });
