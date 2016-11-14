@@ -45,6 +45,11 @@ CREATE DATABASE burgers_db;
 ` sequelize db:seed:all `
 
 
+--- 4a. Create the devourers.js model and Migrations (this is an additional table for burger eater associations)
+` sequelize model:create --name devourers --attributes 'devourer_name:string' `
+
+--- 4b. Run migration to get it into MySQL database (the burger entries were added manaully)
+` sequelize db:migrate `
 
 
 
