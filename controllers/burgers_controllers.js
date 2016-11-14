@@ -7,7 +7,7 @@
 // Node Dependencies
 var express = require('express');
 var router = express.Router();
-var models = require('./models'); // Pulls out the Burger Models
+var models = require('../models'); // Pulls out the Burger Models
 
 
 
@@ -25,7 +25,7 @@ router.get('/', function (req, res) {
 router.get('/index', function (req, res) {
 
   // Sequelize Query to get all burgers from database
-  models.burgers.findAll({}).then(function(data){
+  models.burgers.findAll({attributes: ['id', 'burger_name', 'devoured']}).then(function(data){
 
     var hbsObject = { burgers: data };
     // console.log(data);
@@ -59,32 +59,52 @@ router.post('/burger/create', function (req, res) {
 router.post('/burger/eat/:id', function (req, res) {
 
   // Globalize the current burger
-  var burger;
+  var currentburger;
 
-  // First, use a Sequelize Query to find the burger with the selected id
-  models.burgers.findOne( {where: {id: req.params.id} }).then(function(burger){
+  // Create a new butger eater
+  models.devourers.create({
+    devourer_name: req.body.burgerEater
+  })
+  .then(function(newDevourer){
+
+    console.log(newDevourer);
+    models.burgers.findOne( {where: {id: req.params.id}, attributes: ['id', 'burger_name', 'devoured'] } )
+    .then(function(eatenBurger){
+      console.log(eatenBurger);
+      eatenBurger.addDevourer(newDevourer);
+    })
+  })
+
+
+
+
+//   // First, use a Sequelize Query to find the burger with the selected id
+//   models.burgers.findOne( {where: {id: req.params.id}, attributes: ['id', 'burger_name', 'devoured'] } ).then(function(burger){
     
-    console.log(req.body.burgerEater)
-    // Then, update its status to devoured
-    burger.update({
-      devoured: true,
-    })
-  })
+//     currentburger = burger;
+//     //console.log(req.body.burgerEater)
+//     // Then, update its status to devoured
+//     burger.update({
+//       devoured: true,
+//     })
+//     return;
+//   })
 
-  .then(function(){
-    return models.Devourers.create({
-      devourer_name: req.body.burgerEater
-    })
-  })
+//   .then(function(){
+//     return models.devourers.create({
+//       devourer_name: req.body.burgerEater
+//     })
+//   })
 
-  .then(function(devourer){
-    burger.addDevourers(devourer);
-  })
+//   .then(function(devourer){
+//     devourer.addburger(currentburger);
+//     return;
+//   })
 
-  // After the burger is devoured, refresh the page
-  .then(function(){
-    res.redirect('/index');
-  });
+//   // After the burger is devoured, refresh the page
+//   .then(function(){
+//     res.redirect('/index');
+//   });
 
 });
 

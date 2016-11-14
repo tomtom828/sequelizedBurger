@@ -62,4 +62,4 @@ CREATE DATABASE burgers_db;
 ` sequelize db:seed:undo:all `
 
 --- Remove the whole table
-` sequelize db:migrate:undo `
+` sequelize db:migrate:undo:all `
