@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       devourerId: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

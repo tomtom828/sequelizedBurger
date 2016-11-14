@@ -9,6 +9,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models'); // Pulls out the Burger Models
 
+
 // Extracts the sequelize connection from the models object
 //var sequelizeConnection = models.sequelize;
 
@@ -30,12 +31,25 @@ router.get('/', function (req, res) {
 router.get('/index', function (req, res) {
 
   // Sequelize Query to get all burgers from database
-  models.burgers.findAll({}).then(function(data){
+  models.burgers.findAll({
+    include: [{ model: models.devourers}]
+  }).then(function(data){
+
+// User.findAll({
+//   include: [{
+//     model: Project,
+//     through: {
+//       attributes: ['createdAt', 'startedAt', 'finishedAt'],
+//       where: {completed: true}
+//     }
+//   }]
+// });
+console.log(data)
 
     var hbsObject = { burgers: data };
     // console.log(data);
-    res.render('index', hbsObject);
-
+    //res.render('index', hbsObject);
+res.json(data)
   })
 
 });
