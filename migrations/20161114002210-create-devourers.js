@@ -11,9 +11,6 @@ module.exports = {
       devourer_name: {
         type: Sequelize.STRING
       },
-      burgerId: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

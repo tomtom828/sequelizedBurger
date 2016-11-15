@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // Each of the devourers belongs to one of the burgers
-        devourers.hasOne(models.burgers);
+        devourers.hasOne(models.burgers, { as: 'devourer_id', foreignKey: 'id' , foreignKeyConstraint:true });
       }
     }
   });

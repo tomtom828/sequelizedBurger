@@ -11,10 +11,10 @@ var models = require('../models'); // Pulls out the Burger Models
 
 
 // Extracts the sequelize connection from the models object
-//var sequelizeConnection = models.sequelize;
+var sequelizeConnection = models.sequelize;
 
 // Sync the tables
-//sequelizeConnection.sync();
+sequelizeConnection.sync();
 
 
 // Create routes
@@ -32,7 +32,7 @@ router.get('/index', function (req, res) {
 
   // Sequelize Query to get all burgers from database
   models.burgers.findAll({
-    include: [{ model: models.devourers}]
+   include: [{model: models.devourers, as: 'devourer_id'}]
   }).then(function(data){
 
 // User.findAll({
@@ -44,12 +44,12 @@ router.get('/index', function (req, res) {
 //     }
 //   }]
 // });
-console.log(data)
+//console.log(data)
 
     var hbsObject = { burgers: data };
     // console.log(data);
-    //res.render('index', hbsObject);
-res.json(data)
+    res.render('index', hbsObject);
+// res.json(data)
   })
 
 });
@@ -89,10 +89,13 @@ router.post('/burger/eat/:id', function (req, res) {
 
     // Then, use the returned burger object to...
     .then(function(eatenBurger){
-
+      console.log('----------- new eater ---------------')
+      console.log(newDevourer)
+            console.log('----------- new burger ---------------')
+      console.log(eatenBurger)
       // 1 - Associate the devourer with the burger 
-      newDevourer.setBurger(eatenBurger)
-
+      //newDevourer.setBurger(eatenBurger)
+     // eatenBurger.setDevourer(newDevourer)
       // 2 - Update the burger's status to devoured
       eatenBurger.update({
         devoured: true,
