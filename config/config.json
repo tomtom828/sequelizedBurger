@@ -1,9 +1,24 @@
 {
   "development": {
+    "username": "root",
+    "password": "Iforget123",
+    "database": "burgers_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
     "username": "kjygfmf3ple7q148",
     "password": "kshfm2qldflfy2a9",
     "database": "xmvm0mp18drq2x10",
     "host": "enqhzd10cxh7hv2e.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "use_env_variable": "mysql://kjygfmf3ple7q148:kshfm2qldflfy2a9@enqhzd10cxh7hv2e.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/xmvm0mp18drq2x10"
   }
 }
