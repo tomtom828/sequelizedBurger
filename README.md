@@ -32,7 +32,7 @@ If you wish to clone the app down to your local machine...
   * In the `development` object, add your MySQL localhost `password`.
 3. In your terminal, `cd` into the project folder and run:
   * `npm install` to download all node.js dependencies
-  * `sequelize db:migrate && sequelize db:seed:all` to migrate/seed the database via Sequelize
+  * `sequelize db:migrate && sequelize db:seed:all` to migrate/seed the database via Sequelize CLI
 4. Finally, you can run the programming using:
   * `node server.js` in the terminal to start the node server
   * And navigating to `localhost:3000` in your browser.
@@ -41,7 +41,7 @@ If you wish to clone the app down to your local machine...
 ### Just for Fun
 The app also has a funny "Whine" feature, where random sound effects are played to grieve a devoured burger. This feature uses jQuery click listeners.
 
-If a customer does not enter their name upon devouring a burger, it will default to "Anynomous".
+If a customer does not enter their name upon devouring a burger, it will default to *Anynomous*.
 
 Lastly, the app's front-end design uses Bootstrap. This means that your burgers look just as tasty on mobile as they do on desktop. Please see the screenshots below...
 
@@ -56,6 +56,6 @@ Lastly, the app's front-end design uses Bootstrap. This means that your burgers 
 
 
 ### For the truly curious
-The Sequelize `models` were generated using the Sequelize CLI (**c**ommand **l**ine **i**nterface).
+The Sequelize `models` were generated using the Sequelize CLI (**C**ommand **L**ine **I**nterface).
 
 For more information regarding those nifty commands, please refer to the `schema.sql` file inside the `db` folder.
