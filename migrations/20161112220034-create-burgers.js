@@ -2,10 +2,13 @@
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('burgers', {
-      id: {
+      burgerId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      id: {
         type: Sequelize.INTEGER
       },
       burger_name: {
@@ -13,6 +16,9 @@ module.exports = {
       },
       devoured: {
         type: Sequelize.BOOLEAN
+      },
+      devourerId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

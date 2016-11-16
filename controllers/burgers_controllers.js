@@ -79,13 +79,14 @@ router.post('/burger/eat/:id', function (req, res) {
 
   // Create a new burger devourer
   models.devourers.create({
-    devourer_name: req.body.burgerEater
+    devourer_name: req.body.burgerEater,
+    burgerId: parseInt(req.params.id)
   })
 
   // Then, select the eaten burger by it's id
   .then(function(newDevourer){
 
-    models.burgers.findOne( {where: {id: req.params.id} } )
+    models.burgers.findOne( {where: {burgerId: req.params.id} } )
 
     // Then, use the returned burger object to...
     .then(function(eatenBurger){
@@ -94,8 +95,9 @@ router.post('/burger/eat/:id', function (req, res) {
             console.log('----------- new burger ---------------')
       console.log(eatenBurger)
       // 1 - Associate the devourer with the burger 
+      // eatenBurger.addDevourer(newDevourer)        
       //newDevourer.setBurger(eatenBurger)
-     // eatenBurger.setDevourer(newDevourer)
+     //eatenBurger.setDevourer(newDevourer)
       // 2 - Update the burger's status to devoured
       eatenBurger.update({
         devoured: true,
