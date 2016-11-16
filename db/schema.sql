@@ -14,8 +14,8 @@ CREATE DATABASE burgers_db;
 
 -- Then run the following in your Sequelize CLI to create the migrations and seed the database
 -- Note this only works since the migrations already exist in the repo
-` sequelize db:migrate `
-` sequelize db:seed:all `
+` sequelize db:migrate ` -- for migration (making SQL tables)
+` sequelize db:seed:all ` -- for seeding (adding data to tables)
 
 
 
