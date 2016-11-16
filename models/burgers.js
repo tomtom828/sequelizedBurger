@@ -10,11 +10,15 @@
 module.exports = function(sequelize, DataTypes) {
   var burgers = sequelize.define('burgers', {
     burger_name: DataTypes.STRING,
-    devoured: DataTypes.BOOLEAN
+    devoured: DataTypes.BOOLEAN,
+    devourerId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        // The burger has a 1 to 1 relationship, so nothing needs to be specified here
+        // burgers.hasOne(models.devourers);
+        burgers.belongsTo(models.devourers, { as: 'devourer_id', foreignKey: 'burgerId'}) //, foreignKeyConstraint:true })
+        //burgers.belongsTo(models.devourers, { foreignKey: 'devourerId'})
       }
     }
   });

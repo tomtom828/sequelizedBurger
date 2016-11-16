@@ -10,6 +10,12 @@ var router = express.Router();
 var models = require('../models'); // Pulls out the Burger Models
 
 
+// Extracts the sequelize connection from the models object
+var sequelizeConnection = models.sequelize;
+
+// Sync the tables
+sequelizeConnection.sync();
+
 
 // Create routes
 // ----------------------------------------------------
@@ -25,12 +31,25 @@ router.get('/', function (req, res) {
 router.get('/index', function (req, res) {
 
   // Sequelize Query to get all burgers from database
-  models.burgers.findAll({}).then(function(data){
+  models.burgers.findAll({
+   include: [{model: models.devourers, as: 'devourer_id'}]
+  }).then(function(data){
+
+// User.findAll({
+//   include: [{
+//     model: Project,
+//     through: {
+//       attributes: ['createdAt', 'startedAt', 'finishedAt'],
+//       where: {completed: true}
+//     }
+//   }]
+// });
+//console.log(data)
 
     var hbsObject = { burgers: data };
     // console.log(data);
     res.render('index', hbsObject);
-
+// res.json(data)
   })
 
 });
@@ -57,18 +76,38 @@ router.post('/burger/create', function (req, res) {
 
 // Devour a Burger
 router.post('/burger/eat/:id', function (req, res) {
-  
-  // First, use a Sequelize Query to find the burger with the selected id
-  models.burgers.findOne( {where: {id: req.params.id} }).then(function(burger){
-    
-    // Then, update its status to devoured
-    burger.update({
-      devoured: true
-    })
 
-    // After the burger is devoured, refresh the page
-    .then(function(){
-      res.redirect('/index');
+  // Create a new burger devourer
+  models.devourers.create({
+    devourer_name: req.body.burgerEater,
+    burgerId: parseInt(req.params.id)
+  })
+
+  // Then, select the eaten burger by it's id
+  .then(function(newDevourer){
+
+    models.burgers.findOne( {where: {burgerId: req.params.id} } )
+
+    // Then, use the returned burger object to...
+    .then(function(eatenBurger){
+      console.log('----------- new eater ---------------')
+      console.log(newDevourer)
+            console.log('----------- new burger ---------------')
+      console.log(eatenBurger)
+      // 1 - Associate the devourer with the burger 
+      // eatenBurger.addDevourer(newDevourer)        
+      //newDevourer.setBurger(eatenBurger)
+     //eatenBurger.setDevourer(newDevourer)
+      // 2 - Update the burger's status to devoured
+      eatenBurger.update({
+        devoured: true,
+      })
+
+      // Then, the burger is devoured, so refresh the page
+      .then(function(){
+        res.redirect('/index');
+      });
+
     });
 
   });
