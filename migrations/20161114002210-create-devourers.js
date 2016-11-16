@@ -11,6 +11,16 @@ module.exports = {
       devourer_name: {
         type: Sequelize.STRING
       },
+      // Foreign key usage (added manually)
+      burgerId: {
+          type: Sequelize.INTEGER,
+          references: {
+              model: 'burgers',
+              key: 'id'
+          },
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -14,10 +14,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // The burger has a 1 to 1 relationship, so nothing needs to be specified here
-        // burgers.hasOne(models.devourers);
-        burgers.belongsTo(models.devourers, { as: 'devourer_id', foreignKey: 'id' , foreignKeyConstraint:true })
-
+        // Each of the burgers has one of the devourers associated with it (key is stored on the devourer)
+        burgers.hasOne(models.devourers)
       }
     }
   });

@@ -30,26 +30,16 @@ router.get('/', function (req, res) {
 // Index Page (render all burgers to DOM)
 router.get('/index', function (req, res) {
 
-  // Sequelize Query to get all burgers from database
+  // Sequelize Query to get all burgers from database (and join them to their devourers, if applicable)
   models.burgers.findAll({
-   include: [{model: models.devourers, as: 'devourer_id'}]
+   include: [{model: models.devourers}]
   }).then(function(data){
 
-// User.findAll({
-//   include: [{
-//     model: Project,
-//     through: {
-//       attributes: ['createdAt', 'startedAt', 'finishedAt'],
-//       where: {completed: true}
-//     }
-//   }]
-// });
-//console.log(data)
-
+    // Pass the returned data into a Handlebars object and then render it
     var hbsObject = { burgers: data };
     // console.log(data);
     res.render('index', hbsObject);
-// res.json(data)
+
   })
 
 });
@@ -77,9 +67,15 @@ router.post('/burger/create', function (req, res) {
 // Devour a Burger
 router.post('/burger/eat/:id', function (req, res) {
 
-  // Create a new burger devourer
+  // If not name was added, make it "Anonymous"
+  if(req.body.burgerEater == "" || req.body.burgerEater == null){
+    req.body.burgerEater = "Anonymous";
+  }
+
+  // Create a new burger devourer (and also associate it to the eaten burger's id)
   models.devourers.create({
-    devourer_name: req.body.burgerEater
+    devourer_name: req.body.burgerEater,
+    burgerId: req.params.id
   })
 
   // Then, select the eaten burger by it's id
@@ -89,14 +85,7 @@ router.post('/burger/eat/:id', function (req, res) {
 
     // Then, use the returned burger object to...
     .then(function(eatenBurger){
-      console.log('----------- new eater ---------------')
-      console.log(newDevourer)
-            console.log('----------- new burger ---------------')
-      console.log(eatenBurger)
-      // 1 - Associate the devourer with the burger 
-      //newDevourer.setBurger(eatenBurger)
-     // eatenBurger.setDevourer(newDevourer)
-      // 2 - Update the burger's status to devoured
+      // ... Update the burger's status to devoured
       eatenBurger.update({
         devoured: true,
       })
