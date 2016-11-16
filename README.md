@@ -59,3 +59,9 @@ Lastly, the app's front-end design uses Bootstrap. This means that your burgers 
 The Sequelize `models` were generated using the Sequelize CLI (**C**ommand **L**ine **I**nterface).
 
 For more information regarding those nifty commands, please refer to the `schema.sql` file inside the `db` folder.
+
+Lastly, heroku deployment setup was similiar to localhost setup. After adding JASWDB to the app, the following was done...
+  * Connected to the JAWSDB database using MySQL workbench and the hostname and passwords provided for my app
+  * From node, two commands were used to migrate and seed the db...
+    * `heroku run sequelize db:migrate --env production -m --app eat-da-burgerz-2`
+    * `heroku run sequelize db:seed:all --env production -m --app eat-da-burgerz-2`
