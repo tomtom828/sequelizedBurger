@@ -5,7 +5,8 @@
 
 
 body {
-  background-color: #f4c242;
+  /*background-color: #f4c242;*/
+  background-color: #d6a9c1;
 }
 
 img {
@@ -18,5 +19,11 @@ img {
 
 .tiny_text {
   font-size: 11px;
-  color: #5da82f;
+  /*color: #5da82f;*/
+  color: #087c00;
+}
+
+.bugerEaterTextBox {
+  padding: 2px;
+  height: 100%;
 }
